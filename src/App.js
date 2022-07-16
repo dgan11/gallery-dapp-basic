@@ -1,23 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from "react";
 
 function App() {
+
+  const [account, setAccount] = useState(null)
+
+  const initConnection = async() => {
+    // check if metamask is on the browser
+    if (window.ethereum) {
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts"
+      });
+      setAccount(accounts[0])
+    } else {
+      console.alert('Pls install metamase')
+    }
+  }
+
+  const disconnect = async() => {
+    setAccount(null)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Hello</h1>
+      <button onClick={initConnection}>Connect</button>
+      <button onClick={disconnect}>Disconnect</button>
+      <p>{account}</p>
     </div>
   );
 }
