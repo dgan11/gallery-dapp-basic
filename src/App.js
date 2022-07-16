@@ -24,8 +24,11 @@ function App() {
   return (
     <div>
       <h1>Hello</h1>
-      <button onClick={initConnection}>Connect</button>
-      <button onClick={disconnect}>Disconnect</button>
+      {!account ? 
+        <button onClick={initConnection}>Connect</button>
+      : 
+        <button onClick={disconnect}>Disconnect</button>
+      }
       <p>{account}</p>
     </div>
   );
